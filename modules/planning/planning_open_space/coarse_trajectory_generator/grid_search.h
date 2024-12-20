@@ -105,7 +105,7 @@ class Node2d {
   std::shared_ptr<Node2d> pre_node_ = nullptr;  // 指向前一个节点的智能指针
 };
 
-struct GridAStartResult {
+struct GridAStartResult {  // A*算法的结果结构体, x 坐标列表, y 坐标列表, 路径的代价值
   std::vector<double> x;
   std::vector<double> y;
   double path_cost = 0.0;
