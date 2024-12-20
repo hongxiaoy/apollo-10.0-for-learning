@@ -38,27 +38,27 @@ double GridSearch::EuclidDistance(  // 计算两个点之间的欧氏距离
 }
 
 bool GridSearch::CheckConstraints(std::shared_ptr<Node2d> node) {
-  const double node_grid_x = node->GetGridX();
-  const double node_grid_y = node->GetGridY();
-  if (node_grid_x > max_grid_x_ ||
+  const double node_grid_x = node->GetGridX();  // 获取待检查节点的 x 格点坐标
+  const double node_grid_y = node->GetGridY();  // 获取待检查节点的 y 格点坐标
+  if (node_grid_x > max_grid_x_ ||  // 如果 x 和 y 格点坐标超出了边界范围
       node_grid_x < 0  ||
       node_grid_y > max_grid_y_ ||
       node_grid_y < 0) {
-    return false;
+    return false;  // 则约束检查不通过
   }
-  if (obstacles_linesegments_vec_.empty()) {
-    return true;
+  if (obstacles_linesegments_vec_.empty()) {  // 如果障碍物线段数组是空的
+    return true;  // 则约束检查通过
   }
-  for (const auto& obstacle_linesegments : obstacles_linesegments_vec_) {
-    for (const common::math::LineSegment2d& linesegment :
+  for (const auto& obstacle_linesegments : obstacles_linesegments_vec_) {  // 遍历每一个障碍物
+    for (const common::math::LineSegment2d& linesegment :  // 遍历该障碍物的每一个线段
          obstacle_linesegments) {
       if (linesegment.DistanceTo({node->GetGridX(), node->GetGridY()})
-          < node_radius_) {
-        return false;
+          < node_radius_) {  // 如果当前节点到这条线段的距离小于节点半径
+        return false;  // 则约束检查不通过
       }
     }
   }
-  return true;
+  return true;  // 约束都通过, 最终约束检查通过
 }
 
 std::vector<std::shared_ptr<Node2d>> GridSearch::GenerateNextNodes(  // 生成当前节点下一个节点的函数
