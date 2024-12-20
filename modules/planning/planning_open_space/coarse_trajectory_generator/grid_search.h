@@ -133,21 +133,21 @@ class GridSearch {
 
  private:
   double EuclidDistance(const double x1, const double y1, const double x2,
-                        const double y2);
+                        const double y2);  // 给定两个点的坐标, 计算它们之间的欧氏距离
   std::vector<std::shared_ptr<Node2d>> GenerateNextNodes(
-      std::shared_ptr<Node2d> node);
-  bool CheckConstraints(std::shared_ptr<Node2d> node);
-  void LoadGridAStarResult(GridAStartResult* result);
+      std::shared_ptr<Node2d> node);  // 生成当前节点的后继节点的函数, 输入为当前节点的指针, 返回值为一组节点的指针
+  bool CheckConstraints(std::shared_ptr<Node2d> node);  // 检查给定节点的约束
+  void LoadGridAStarResult(GridAStartResult* result);  // 加载给定的 A* 算法结果
 
  private:
-  double xy_grid_resolution_ = 0.0;
-  double node_radius_ = 0.0;
-  std::vector<double> XYbounds_;
-  double max_grid_x_ = 0.0;
-  double max_grid_y_ = 0.0;
-  std::shared_ptr<Node2d> start_node_;
-  std::shared_ptr<Node2d> end_node_;
-  std::shared_ptr<Node2d> final_node_;
+  double xy_grid_resolution_ = 0.0;  // x 和 y 方向上的格点分辨率
+  double node_radius_ = 0.0;  // 节点半径
+  std::vector<double> XYbounds_;  // 场景的 x 和 y 方向上的范围, 一组值
+  double max_grid_x_ = 0.0;  // x 方向上最大格点坐标
+  double max_grid_y_ = 0.0;  // y 方向上最大格点坐标
+  std::shared_ptr<Node2d> start_node_;  // 开始节点
+  std::shared_ptr<Node2d> end_node_;  // 终点节点
+  std::shared_ptr<Node2d> final_node_;  // 最后一个节点
   std::vector<std::vector<common::math::LineSegment2d>>
       obstacles_linesegments_vec_;
 
