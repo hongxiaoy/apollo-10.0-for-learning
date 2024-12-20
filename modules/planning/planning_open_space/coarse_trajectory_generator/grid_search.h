@@ -67,16 +67,16 @@ class Node2d {
       distance_to_obstacle_ = dist;
   }
   void SetPreNode(std::shared_ptr<Node2d> pre_node) { pre_node_ = pre_node; }
-  double GetGridX() const { return grid_x_; }
-  double GetGridY() const { return grid_y_; }
-  double GetPathCost() const { return path_cost_; }
-  double GetHeuCost() const { return heuristic_; }
-  double GetCost() const { return cost_; }
-  double GetDistanceToObstacle() const {
+  double GetGridX() const { return grid_x_; }  // 获取节点的 x 方向格点坐标
+  double GetGridY() const { return grid_y_; }  // 获取节点的 y 方向格点坐标
+  double GetPathCost() const { return path_cost_; }  // 获取节点的路径代价
+  double GetHeuCost() const { return heuristic_; }  // 获取节点的启发式代价
+  double GetCost() const { return cost_; }  // 获取节点的总代价
+  double GetDistanceToObstacle() const {  // 获取节点与障碍物的距离
       return distance_to_obstacle_;
   }
-  const std::string& GetIndex() const { return index_; }
-  std::shared_ptr<Node2d> GetPreNode() const { return pre_node_; }
+  const std::string& GetIndex() const { return index_; }  // 获取字符串类型的格子索引值
+  std::shared_ptr<Node2d> GetPreNode() const { return pre_node_; }  // 获取此节点的上一个节点的指针
   static std::string CalcIndex(const double x, const double y,
                                const double xy_resolution,
                                const std::vector<double>& XYbounds) {
