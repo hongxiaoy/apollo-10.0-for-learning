@@ -32,7 +32,7 @@ GridSearch::GridSearch(const PlannerOpenSpaceConfig& open_space_conf) {
       open_space_conf.warm_start_config().node_radius();
 }
 
-double GridSearch::EuclidDistance(
+double GridSearch::EuclidDistance(  // 计算两个点之间的欧氏距离
     const double x1, const double y1, const double x2, const double y2) {
   return std::sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
 }
