@@ -44,7 +44,7 @@ class Node2d {
   Node2d(const double x, const double y, const double xy_resolution,
          const std::vector<double>& XYbounds) {
     // XYbounds with xmin, xmax, ymin, ymax
-    grid_x_ = static_cast<int>((x - XYbounds[0]) / xy_resolution);
+    grid_x_ = static_cast<int>((x - XYbounds[0]) / xy_resolution);  // XYbounds is [xmin, xmax, ymin, ymax]
     grid_y_ = static_cast<int>((y - XYbounds[2]) / xy_resolution);
     index_ = ComputeStringIndex(grid_x_, grid_y_);
   }
@@ -94,15 +94,15 @@ class Node2d {
     return absl::StrCat(x_grid, "_", y_grid);
   }
 
- private:
-  int grid_x_ = 0;
-  int grid_y_ = 0;
-  double path_cost_ = 0.0;
-  double heuristic_ = 0.0;
-  double cost_ = 0.0;
-  double distance_to_obstacle_ = std::numeric_limits<double>::max();
-  std::string index_;
-  std::shared_ptr<Node2d> pre_node_ = nullptr;
+ private:  // 私有成员变量
+  int grid_x_ = 0;  // 整型, 节点在 x 方向上的格子序号
+  int grid_y_ = 0;  // 整型, 节点在 y 方向上的格子序号
+  double path_cost_ = 0.0;  // 双精度浮点型, 路径的代价
+  double heuristic_ = 0.0;  // 双精度浮点型, 路径的启发式代价
+  double cost_ = 0.0;  // 双精度浮点型, 节点的总代价
+  double distance_to_obstacle_ = std::numeric_limits<double>::max();  // 节点与障碍物之间的距离, 设置为双精度浮点型的最大值
+  std::string index_;  // 将节点在格子中的位置用字符串表示
+  std::shared_ptr<Node2d> pre_node_ = nullptr;  // 上一个节点的指针
 };
 
 struct GridAStartResult {
