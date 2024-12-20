@@ -61,13 +61,13 @@ bool GridSearch::CheckConstraints(std::shared_ptr<Node2d> node) {
   return true;
 }
 
-std::vector<std::shared_ptr<Node2d>> GridSearch::GenerateNextNodes(
+std::vector<std::shared_ptr<Node2d>> GridSearch::GenerateNextNodes(  // 生成当前节点下一个节点的函数
     std::shared_ptr<Node2d> current_node) {
-  double current_node_x = current_node->GetGridX();
-  double current_node_y = current_node->GetGridY();
-  double current_node_path_cost = current_node->GetPathCost();
-  double diagonal_distance = std::sqrt(2.0);
-  std::vector<std::shared_ptr<Node2d>> next_nodes;
+  double current_node_x = current_node->GetGridX();  // 获取当前节点的 x 格点坐标
+  double current_node_y = current_node->GetGridY();  // 获取当前节点的 y 格点坐标
+  double current_node_path_cost = current_node->GetPathCost();  // 获取当前节点路径代价
+  double diagonal_distance = std::sqrt(2.0);  // 对角距离为 根2
+  std::vector<std::shared_ptr<Node2d>> next_nodes;  // 维护一个 Node2d 指针的数组来存储后继的所有节点
   std::shared_ptr<Node2d> up =
       std::make_shared<Node2d>(current_node_x, current_node_y + 1.0, XYbounds_);
   up->SetPathCost(current_node_path_cost + 1.0);
