@@ -54,19 +54,19 @@ class Node2d {
     grid_y_ = grid_y;
     index_ = ComputeStringIndex(grid_x_, grid_y_);
   }
-  void SetPathCost(const double path_cost) {
+  void SetPathCost(const double path_cost) {  // 设定当前节点的路径代价, 同时更新的有节点的总代价
     path_cost_ = path_cost;
     cost_ = path_cost_ + heuristic_;
   }
-  void SetHeuristic(const double heuristic) {
+  void SetHeuristic(const double heuristic) {  // 设定当前节点的启发式代价, 同时更新的有节点的总代价
     heuristic_ = heuristic;
     cost_ = path_cost_ + heuristic_;
   }
-  void SetCost(const double cost) { cost_ = cost; }
-  void SetDistanceToObstacle(const double dist) {
+  void SetCost(const double cost) { cost_ = cost; }  // 设定当前节点的代价
+  void SetDistanceToObstacle(const double dist) {  // 设定当前节点和障碍物的距离
       distance_to_obstacle_ = dist;
   }
-  void SetPreNode(std::shared_ptr<Node2d> pre_node) { pre_node_ = pre_node; }
+  void SetPreNode(std::shared_ptr<Node2d> pre_node) { pre_node_ = pre_node; }  // 设置上一个节点的指针
   double GetGridX() const { return grid_x_; }  // 获取节点的 x 方向格点坐标
   double GetGridY() const { return grid_y_; }  // 获取节点的 y 方向格点坐标
   double GetPathCost() const { return path_cost_; }  // 获取节点的路径代价
