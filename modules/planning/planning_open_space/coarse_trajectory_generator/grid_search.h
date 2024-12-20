@@ -41,14 +41,14 @@ namespace planning {
 
 class Node2d {
  public:
-  Node2d(const double x, const double y, const double xy_resolution,
+  Node2d(const double x, const double y, const double xy_resolution,  // 构造函数, 根据节点的位置, 格点分辨率, 节点的边界范围构建格点坐标, 同时更新字符串索引表示
          const std::vector<double>& XYbounds) {
     // XYbounds with xmin, xmax, ymin, ymax
     grid_x_ = static_cast<int>((x - XYbounds[0]) / xy_resolution);
     grid_y_ = static_cast<int>((y - XYbounds[2]) / xy_resolution);
     index_ = ComputeStringIndex(grid_x_, grid_y_);
   }
-  Node2d(const int grid_x, const int grid_y,
+  Node2d(const int grid_x, const int grid_y,  // 构造函数, 只设置 x 和 y 方向的格点坐标, 同时更新字符串索引表示
          const std::vector<double>& XYbounds) {
     grid_x_ = grid_x;
     grid_y_ = grid_y;
@@ -85,7 +85,7 @@ class Node2d {
     int grid_y = static_cast<int>((y - XYbounds[2]) / xy_resolution);
     return ComputeStringIndex(grid_x, grid_y);
   }
-  bool operator==(const Node2d& right) const {
+  bool operator==(const Node2d& right) const {  // 自定义了一个运算符, 判断两个节点是否相等, 就根据字符串索引表示判断
     return right.GetIndex() == index_;
   }
 
