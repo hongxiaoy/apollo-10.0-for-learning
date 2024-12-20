@@ -39,7 +39,7 @@
 namespace apollo {
 namespace planning {
 
-class Node2d {
+class Node2d {  // 构建了一个 2D 节点类, 用于表示轨迹规划中的路径点
  public:
   Node2d(const double x, const double y, const double xy_resolution,  // 构造函数, 根据节点的位置, 格点分辨率, 节点的边界范围构建格点坐标, 同时更新字符串索引表示
          const std::vector<double>& XYbounds) {
