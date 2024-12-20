@@ -68,32 +68,32 @@ std::vector<std::shared_ptr<Node2d>> GridSearch::GenerateNextNodes(  // 生成�
   double current_node_path_cost = current_node->GetPathCost();  // 获取当前节点路径代价
   double diagonal_distance = std::sqrt(2.0);  // 对角距离为 根2
   std::vector<std::shared_ptr<Node2d>> next_nodes;  // 维护一个 Node2d 指针的数组来存储后继的所有节点
-  std::shared_ptr<Node2d> up =
+  std::shared_ptr<Node2d> up =  // [x, y+1] 节点
       std::make_shared<Node2d>(current_node_x, current_node_y + 1.0, XYbounds_);
-  up->SetPathCost(current_node_path_cost + 1.0);
-  std::shared_ptr<Node2d> up_right = std::make_shared<Node2d>(
+  up->SetPathCost(current_node_path_cost + 1.0);  // 上方节点的轨迹代价 + 1
+  std::shared_ptr<Node2d> up_right = std::make_shared<Node2d>(  // [x+1, y+1] 节点
       current_node_x + 1.0, current_node_y + 1.0, XYbounds_);
-  up_right->SetPathCost(current_node_path_cost + diagonal_distance);
-  std::shared_ptr<Node2d> right =
+  up_right->SetPathCost(current_node_path_cost + diagonal_distance);  // 右上方的节点路径代价 + 根2
+  std::shared_ptr<Node2d> right =  // [x+1, y] 节点
       std::make_shared<Node2d>(current_node_x + 1.0, current_node_y, XYbounds_);
-  right->SetPathCost(current_node_path_cost + 1.0);
-  std::shared_ptr<Node2d> down_right = std::make_shared<Node2d>(
+  right->SetPathCost(current_node_path_cost + 1.0);  // 右侧的节点路径代价 + 1
+  std::shared_ptr<Node2d> down_right = std::make_shared<Node2d>(  // [x+1, y-1] 节点
       current_node_x + 1.0, current_node_y - 1.0, XYbounds_);
-  down_right->SetPathCost(current_node_path_cost + diagonal_distance);
-  std::shared_ptr<Node2d> down =
+  down_right->SetPathCost(current_node_path_cost + diagonal_distance);  // 右下方的节点路径代价 + 根2
+  std::shared_ptr<Node2d> down =  // [x, y-1] 节点
       std::make_shared<Node2d>(current_node_x, current_node_y - 1.0, XYbounds_);
-  down->SetPathCost(current_node_path_cost + 1.0);
-  std::shared_ptr<Node2d> down_left = std::make_shared<Node2d>(
+  down->SetPathCost(current_node_path_cost + 1.0);  // 下方节点路径代价 + 1
+  std::shared_ptr<Node2d> down_left = std::make_shared<Node2d>(  // [x-1, y-1] 节点
       current_node_x - 1.0, current_node_y - 1.0, XYbounds_);
-  down_left->SetPathCost(current_node_path_cost + diagonal_distance);
-  std::shared_ptr<Node2d> left =
+  down_left->SetPathCost(current_node_path_cost + diagonal_distance);  // 左下节点路径代价 + 根2
+  std::shared_ptr<Node2d> left =  // 【x-1, y] 节点
       std::make_shared<Node2d>(current_node_x - 1.0, current_node_y, XYbounds_);
-  left->SetPathCost(current_node_path_cost + 1.0);
-  std::shared_ptr<Node2d> up_left = std::make_shared<Node2d>(
+  left->SetPathCost(current_node_path_cost + 1.0);  // 左侧节点路径代价 + 1
+  std::shared_ptr<Node2d> up_left = std::make_shared<Node2d>(  // [x-1, y+1] 节点
       current_node_x - 1.0, current_node_y + 1.0, XYbounds_);
-  up_left->SetPathCost(current_node_path_cost + diagonal_distance);
+  up_left->SetPathCost(current_node_path_cost + diagonal_distance);  // 左上节点路径代价 + 1
 
-  next_nodes.emplace_back(up);
+  next_nodes.emplace_back(up);  // 将当前节点周边的 8 个后继节点的指针都存储在数组中
   next_nodes.emplace_back(up_right);
   next_nodes.emplace_back(right);
   next_nodes.emplace_back(down_right);
