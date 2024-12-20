@@ -95,14 +95,14 @@ class Node2d {
   }
 
  private:
-  int grid_x_ = 0;
-  int grid_y_ = 0;
-  double path_cost_ = 0.0;
-  double heuristic_ = 0.0;
-  double cost_ = 0.0;
-  double distance_to_obstacle_ = std::numeric_limits<double>::max();
-  std::string index_;
-  std::shared_ptr<Node2d> pre_node_ = nullptr;
+  int grid_x_ = 0;  // 整型变量, 节点在 x 方向上的格点坐标
+  int grid_y_ = 0;  // 整型变量, 节点在 y 方向上的格点坐标
+  double path_cost_ = 0.0;  // 双精度浮点型, 路径代价
+  double heuristic_ = 0.0;  // 双精度浮点型, 启发式代价
+  double cost_ = 0.0;  // 节点整体代价
+  double distance_to_obstacle_ = std::numeric_limits<double>::max();  // 双精度浮点型, 数据类型的最大值
+  std::string index_;  // 节点的格点坐标的字符串表示
+  std::shared_ptr<Node2d> pre_node_ = nullptr;  // 指向前一个节点的智能指针
 };
 
 struct GridAStartResult {
