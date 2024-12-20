@@ -90,11 +90,11 @@ class Node2d {
   }
 
  private:
-  static std::string ComputeStringIndex(int x_grid, int y_grid) {
-    return absl::StrCat(x_grid, "_", y_grid);
+  static std::string ComputeStringIndex(int x_grid, int y_grid) {  // 私有成员函数, 输入两个整型, 拼接为类似 3_5 的形式
+    return absl::StrCat(x_grid, "_", y_grid);  // 调用了另一个库的字符串拼接函数
   }
 
- private:
+ private:  // 私有成员变量
   int grid_x_ = 0;  // 整型变量, 节点在 x 方向上的格点坐标
   int grid_y_ = 0;  // 整型变量, 节点在 y 方向上的格点坐标
   double path_cost_ = 0.0;  // 双精度浮点型, 路径代价
