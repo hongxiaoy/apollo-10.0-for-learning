@@ -77,13 +77,13 @@ class Node2d {
   }
   const std::string& GetIndex() const { return index_; }  // 获取字符串类型的格子索引值
   std::shared_ptr<Node2d> GetPreNode() const { return pre_node_; }  // 获取此节点的上一个节点的指针
-  static std::string CalcIndex(const double x, const double y,
+  static std::string CalcIndex(const double x, const double y,  // 根据 x 和 y 的坐标, 格点分辨率, XY 场景边界计算并更新格点索引
                                const double xy_resolution,
                                const std::vector<double>& XYbounds) {
     // XYbounds with xmin, xmax, ymin, ymax
-    int grid_x = static_cast<int>((x - XYbounds[0]) / xy_resolution);
-    int grid_y = static_cast<int>((y - XYbounds[2]) / xy_resolution);
-    return ComputeStringIndex(grid_x, grid_y);
+    int grid_x = static_cast<int>((x - XYbounds[0]) / xy_resolution);  // 计算格点 x 方向坐标
+    int grid_y = static_cast<int>((y - XYbounds[2]) / xy_resolution);  // 计算格点 y 方向坐标
+    return ComputeStringIndex(grid_x, grid_y);  // 返回值为字符串型的格点字符串表示
   }
   bool operator==(const Node2d& right) const {  // 自定义了一个运算符, 判断两个节点是否相等, 就根据字符串索引表示判断
     return right.GetIndex() == index_;
