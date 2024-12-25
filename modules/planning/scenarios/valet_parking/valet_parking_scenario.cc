@@ -58,26 +58,26 @@ bool ValetParkingScenario::Init(std::shared_ptr<DependencyInjector> injector,
 bool ValetParkingScenario::IsTransferable(const Scenario* const other_scenario,
                                           const Frame& frame) {
   // TODO(all) Implement available parking spot detection by preception results
-  if (!frame.local_view().planning_command->has_parking_command()) {
+  if (!frame.local_view().planning_command->has_parking_command()) {  // 如果不含泊车指令，场景不可切换
     return false;
   }
-  if (other_scenario == nullptr || frame.reference_line_info().empty()) {
+  if (other_scenario == nullptr || frame.reference_line_info().empty()) {  // 如果无参考线信息或无其它场景，那么场景也是不可切换的
     return false;
   }
-  std::string target_parking_spot_id;
+  std::string target_parking_spot_id;  // 字符串类型的目标停车点id
   if (frame.local_view().planning_command->has_parking_command() &&
       frame.local_view()
           .planning_command->parking_command()
-          .has_parking_spot_id()) {
+          .has_parking_spot_id()) {  // 如果当前数据帧中的局部视图的规划命令中有停车指令 并且停车指令中带有停车点 id
     target_parking_spot_id = frame.local_view()
                                  .planning_command->parking_command()
-                                 .parking_spot_id();
+                                 .parking_spot_id();  // 那么就能够获取到这个停车点 id
   } else {
-    ADEBUG << "No parking space id from routing";
-    return false;
+    ADEBUG << "No parking space id from routing";  // 否则输出路由中未提供停车位 id
+    return false;  // 场景不能切换
   }
 
-  if (target_parking_spot_id.empty()) {
+  if (target_parking_spot_id.empty()) {  // 如果有停车点 id 但是为空, 那么场景也不能切换
     return false;
   }
 
