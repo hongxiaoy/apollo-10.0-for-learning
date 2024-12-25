@@ -223,12 +223,12 @@ bool GridSearch::GenerateDpMap(
   return true;
 }
 
-double GridSearch::CheckDpMap(const double sx, const double sy) {
-  std::string index = Node2d::CalcIndex(sx, sy, xy_grid_resolution_, XYbounds_);
-  if (dp_map_.find(index) != dp_map_.end()) {
-    return dp_map_[index]->GetCost() * xy_grid_resolution_;
+double GridSearch::CheckDpMap(const double sx, const double sy) {  // 查看地图
+  std::string index = Node2d::CalcIndex(sx, sy, xy_grid_resolution_, XYbounds_);  // 首先计算待查点的字符索引表示
+  if (dp_map_.find(index) != dp_map_.end()) {  // 如果找到
+    return dp_map_[index]->GetCost() * xy_grid_resolution_;  // 那么就返回该节点的代价
   } else {
-    return std::numeric_limits<double>::infinity();
+    return std::numeric_limits<double>::infinity();  // 否则返回无穷大
   }
 }
 
