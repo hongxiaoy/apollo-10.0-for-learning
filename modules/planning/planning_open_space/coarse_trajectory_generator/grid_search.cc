@@ -104,7 +104,7 @@ std::vector<std::shared_ptr<Node2d>> GridSearch::GenerateNextNodes(  // 生成�
   return next_nodes;
 }
 
-bool GridSearch::GenerateAStarPath(
+bool GridSearch::GenerateAStarPath(  // 生成A*路径
     const double sx, const double sy, const double ex, const double ey,
     const std::vector<double>& XYbounds,
     const std::vector<std::vector<common::math::LineSegment2d>>&
@@ -177,38 +177,38 @@ bool GridSearch::GenerateDpMap(
             soft_boundary_linesegments_vec) {
   std::priority_queue<std::pair<std::string, double>,
                       std::vector<std::pair<std::string, double>>, cmp>
-      open_pq;
-  std::unordered_map<std::string, std::shared_ptr<Node2d>> open_set;
+      open_pq;  // 优先队列对象
+  std::unordered_map<std::string, std::shared_ptr<Node2d>> open_set;  // 算法中的开集（未访问过的节点）
   dp_map_ = decltype(dp_map_)();
   XYbounds_ = XYbounds;
   // XYbounds with xmin, xmax, ymin, ymax
-  max_grid_y_ = std::round((XYbounds_[3] - XYbounds_[2]) / xy_grid_resolution_);
-  max_grid_x_ = std::round((XYbounds_[1] - XYbounds_[0]) / xy_grid_resolution_);
-  std::shared_ptr<Node2d> end_node =
+  max_grid_y_ = std::round((XYbounds_[3] - XYbounds_[2]) / xy_grid_resolution_);  // 最大的 y 格点坐标
+  max_grid_x_ = std::round((XYbounds_[1] - XYbounds_[0]) / xy_grid_resolution_);  // 最大的 x 格点坐标
+  std::shared_ptr<Node2d> end_node =  // 最后一个节点
       std::make_shared<Node2d>(ex, ey, xy_grid_resolution_, XYbounds_);
   obstacles_linesegments_vec_ = obstacles_linesegments_vec;
   open_set.emplace(end_node->GetIndex(), end_node);
   open_pq.emplace(end_node->GetIndex(), end_node->GetCost());
 
   // Grid a star begins
-  size_t explored_node_num = 0;
-  while (!open_pq.empty()) {
-    const std::string current_id = open_pq.top().first;
-    open_pq.pop();
+  size_t explored_node_num = 0;  // 已经探索过的节点数量
+  while (!open_pq.empty()) {  // 如果优先队列不为空
+    const std::string current_id = open_pq.top().first;  // 去除队列第一个的节点的名称
+    open_pq.pop();  // 弹出第一个节点
     std::shared_ptr<Node2d> current_node = open_set[current_id];
     dp_map_.emplace(current_node->GetIndex(), current_node);
-    std::vector<std::shared_ptr<Node2d>> next_nodes =
+    std::vector<std::shared_ptr<Node2d>> next_nodes =  // 从当前节点生成后续节点
         std::move(GenerateNextNodes(current_node));
-    for (auto& next_node : next_nodes) {
-      if (!CheckConstraints(next_node)) {
+    for (auto& next_node : next_nodes) {  // 遍历每一个后继节点
+      if (!CheckConstraints(next_node)) {  // 如果后继节点不通过碰撞检测就跳过
         continue;
       }
-      if (dp_map_.find(next_node->GetIndex()) != dp_map_.end()) {
+      if (dp_map_.find(next_node->GetIndex()) != dp_map_.end()) {  // 如果地图里能找到下一个节点, 则跳过
         continue;
       }
-      if (open_set.find(next_node->GetIndex()) == open_set.end()) {
+      if (open_set.find(next_node->GetIndex()) == open_set.end()) {  // 从开集里找不到下一个节点
         ++explored_node_num;
-        next_node->SetPreNode(current_node);
+        next_node->SetPreNode(current_node);  // 设置前驱节点
         open_set.emplace(next_node->GetIndex(), next_node);
         open_pq.emplace(next_node->GetIndex(), next_node->GetCost());
       } else {
