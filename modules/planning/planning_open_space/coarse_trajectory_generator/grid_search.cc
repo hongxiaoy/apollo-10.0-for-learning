@@ -232,21 +232,21 @@ double GridSearch::CheckDpMap(const double sx, const double sy) {
   }
 }
 
-void GridSearch::LoadGridAStarResult(GridAStartResult* result) {
-  (*result).path_cost = final_node_->GetPathCost() * xy_grid_resolution_;
-  std::shared_ptr<Node2d> current_node = final_node_;
-  std::vector<double> grid_a_x;
-  std::vector<double> grid_a_y;
-  while (current_node->GetPreNode() != nullptr) {
+void GridSearch::LoadGridAStarResult(GridAStartResult* result) {  // 加载A*算法结果
+  (*result).path_cost = final_node_->GetPathCost() * xy_grid_resolution_;  // 最后一个节点的路径代价 经过分辨率加权 得到最终的路径代价
+  std::shared_ptr<Node2d> current_node = final_node_;  // 初始化当前节点为最后一个节点
+  std::vector<double> grid_a_x;  // 存储路径点 x 坐标
+  std::vector<double> grid_a_y;  // 存储路径点 y 坐标
+  while (current_node->GetPreNode() != nullptr) {  // 如果当前节点不是第一个节点
     grid_a_x.push_back(current_node->GetGridX() * xy_grid_resolution_ +
-                       XYbounds_[0]);
+                       XYbounds_[0]);  // 添加当前节点的实际 x 坐标到列表
     grid_a_y.push_back(current_node->GetGridY() * xy_grid_resolution_ +
-                       XYbounds_[2]);
-    current_node = current_node->GetPreNode();
+                       XYbounds_[2]);  // 添加当前节点的实际 y 坐标到列表
+    current_node = current_node->GetPreNode();  // 更新到前一个结点
   }
-  std::reverse(grid_a_x.begin(), grid_a_x.end());
+  std::reverse(grid_a_x.begin(), grid_a_x.end());  // 将路径点坐标顺序逆序，得到从起点到终点的路径
   std::reverse(grid_a_y.begin(), grid_a_y.end());
-  (*result).x = std::move(grid_a_x);
+  (*result).x = std::move(grid_a_x);  // 更新原结果中的从终点到起点的逆序路径
   (*result).y = std::move(grid_a_y);
 }
 }  // namespace planning
