@@ -148,17 +148,17 @@ class GridSearch {
   std::shared_ptr<Node2d> start_node_;  // 开始节点
   std::shared_ptr<Node2d> end_node_;  // 终点节点
   std::shared_ptr<Node2d> final_node_;  // 最后一个节点
-  std::vector<std::vector<common::math::LineSegment2d>>
+  std::vector<std::vector<common::math::LineSegment2d>>  // 一个二维数组, 障碍物线段向量, 第一个维度是不同障碍物, 第二个维度是每个障碍物的不同线段
       obstacles_linesegments_vec_;
 
-  struct cmp {
+  struct cmp {  // 一个比较函数
       bool operator()(const std::pair<std::string,
                       double>& left,
                       const std::pair<std::string, double>& right) const {
           return left.second >= right.second;
       }
   };
-  std::unordered_map<std::string, std::shared_ptr<Node2d>> dp_map_;
+  std::unordered_map<std::string, std::shared_ptr<Node2d>> dp_map_;  // 一个使用字符串作为键，使用指向Node2d对象的共享指针作为值的无序映射
 
   // park generic
  public:
@@ -175,10 +175,10 @@ class GridSearch {
       common::math::Vec2d origin_index,
       std::unordered_set<std::string>& close_set);
   std::vector<std::vector<common::math::LineSegment2d>>
-      soft_boundary_linesegments_vec_;
+      soft_boundary_linesegments_vec_;  // 软边界线段向量
   double esdf_range_ = 0.0;
   bool use_esdf_ = false;
-  std::vector<int> dx_{1, 0, -1, 0};
+  std::vector<int> dx_{1, 0, -1, 0};  // 与下面一行共同构成当前节点的偏移量，右下左上的顺序
   std::vector<int> dy_{0, -1, 0, 1};
 };
 }  // namespace planning
